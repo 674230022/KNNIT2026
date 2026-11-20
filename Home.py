@@ -9,9 +9,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# -----------------------------
-# ส่วนที่ 1 ตั้งค่าหน้าเว็บไซต์
-# -----------------------------
+
 
 st.set_page_config(page_title="Heart Disease KNN", layout="wide")
 
@@ -33,18 +31,13 @@ with col3:
     st.header("สุขภาพหัวใจ")
     st.image("./img/heart_health.jpg")
 
-# -----------------------------
-# ส่วนที่ 2 อ่านข้อมูล
-# -----------------------------
+
 
 dt = pd.read_csv("./Heart3.csv")
 
 st.subheader("สถิติข้อมูลโรคหัวใจ")
 st.write(dt.head(10))
 
-# -----------------------------
-# ส่วนที่ 3 แสดงกราฟข้อมูล
-# -----------------------------
 
 html_7 = """
 <div style="background-color:#EC7063;padding:15px;border-radius:15px">
@@ -54,7 +47,7 @@ html_7 = """
 
 st.markdown(html_7, unsafe_allow_html=True)
 
-# นับจำนวนผู้ที่มีและไม่มีโรคหัวใจ
+
 
 dt1 = dt["HeartDisease"].value_counts().sort_index()
 
@@ -63,14 +56,12 @@ dt1.index = ["ไม่มีโรคหัวใจ (0)", "มีโรคห�
 if st.checkbox("แสดงการจินตทัศน์ข้อมูล"):
     st.bar_chart(dt1)
 
-# -----------------------------
-# ส่วนที่ 4 เตรียมข้อมูล KNN
-# -----------------------------
+
 
 X = dt.drop("HeartDisease", axis=1)
 y = dt["HeartDisease"]
 
-# แบ่งข้อมูล Train และ Test
+
 
 X_train, X_test, y_train, y_test = train_test_split(
     X,
@@ -80,18 +71,17 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-# สร้างโมเดล KNN พร้อมปรับมาตรฐานข้อมูล
+
 
 Knn_model = Pipeline([
     ("scaler", StandardScaler()),
     ("knn", KNeighborsClassifier(n_neighbors=5))
 ])
 
-# ฝึกโมเดล
 
 Knn_model.fit(X_train, y_train)
 
-# ทดสอบโมเดล
+
 
 y_pred = Knn_model.predict(X_test)
 
@@ -101,9 +91,7 @@ st.subheader("ประสิทธิภาพโมเดล KNN")
 
 st.metric("Accuracy", f"{accuracy * 100:.2f}%")
 
-# -----------------------------
-# ส่วนที่ 5 ทำนายข้อมูลโรคหัวใจ
-# -----------------------------
+
 
 html_8 = """
 <div style="background-color:#6BD5DA;padding:15px;border-radius:15px">
@@ -173,9 +161,7 @@ with col3:
         sorted(dt["ST_Slope"].unique())
     )
 
-# -----------------------------
-# ส่วนที่ 6 แสดงผลการทำนาย
-# -----------------------------
+
 
 if st.button("ทำนายผล"):
 
@@ -203,7 +189,7 @@ if st.button("ทำนายผล"):
     else:
         st.success("ผลการทำนาย: ไม่มีโรคหัวใจ (HeartDisease = 0)")
 
-    # แสดงค่าความน่าจะเป็นจากโมเดล
+
 
     probability = Knn_model.predict_proba(x_input)[0]
 
@@ -218,11 +204,7 @@ if st.button("ทำนายผล"):
         "ไม่ใช่การวินิจฉัยทางการแพทย์"
     )
 
-# -----------------------------
 
-# -----------------------------
-# ส่วนที่ 7 ข้อมูลผู้จัดทำ
-# -----------------------------
 
 st.markdown("---")
 
