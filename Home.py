@@ -217,3 +217,30 @@ if st.button("ทำนายผล"):
         "ผลลัพธ์เป็นการทำนายจากโมเดลเพื่อการศึกษา "
         "ไม่ใช่การวินิจฉัยทางการแพทย์"
     )
+
+# -----------------------------
+# ส่วนที่ 7 ข้อมูลผู้จัดทำ
+# -----------------------------
+
+st.markdown("---")
+
+st.markdown(
+    """
+    <div style="text-align:center;
+                background-color:#D6EAF8;
+                padding:15px;
+                border-radius:15px;">
+        <h3>ผู้จัดทำโครงงาน</h3>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+col1, col2, col3 = st.columns([1, 2, 1])
+
+with col2:
+    st.image(
+        "./img/Profile.jpg",
+        caption="ผู้จัดทำโครงงาน",
+        width=200
+    )
