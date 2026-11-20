@@ -1,3 +1,4 @@
+
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -40,7 +41,7 @@ st.markdown("""
     --surface: #191426;
     --surface-2: #211a31;
     --surface-3: #2a2140;
-    --line: #382d4c;
+    --line: #493b5d;
     --text: #f5f1fc;
     --muted: #b7abc9;
     --purple: #a78bfa;
@@ -85,7 +86,7 @@ p, label {
     color: var(--muted);
 }
 
-/* Main heading */
+/* HEADER */
 
 .hero {
     position: relative;
@@ -140,7 +141,7 @@ p, label {
     font-size: 14px;
 }
 
-/* Section headings and metric cards */
+/* SECTION */
 
 .section {
     color: #e1d3ff;
@@ -148,6 +149,8 @@ p, label {
     font-weight: 600;
     margin: 30px 0 15px;
 }
+
+/* METRICS */
 
 div[data-testid="stMetric"] {
     background: linear-gradient(145deg, #211a31, #1a1627);
@@ -168,7 +171,7 @@ div[data-testid="stMetricValue"] {
     font-size: 30px;
 }
 
-/* Streamlit containers and gallery cards */
+/* CONTAINERS */
 
 div[data-testid="stVerticalBlockBorderWrapper"] {
     background: rgba(29, 23, 43, .88);
@@ -183,7 +186,7 @@ div[data-testid="stImage"] img {
     object-fit: cover;
 }
 
-/* Tabs */
+/* TABS */
 
 .stTabs [data-baseweb="tab-list"] {
     gap: 7px;
@@ -210,7 +213,7 @@ div[data-testid="stImage"] img {
     background: var(--purple);
 }
 
-/* Buttons */
+/* BUTTONS */
 
 .stButton > button,
 .stFormSubmitButton > button {
@@ -240,18 +243,93 @@ div[data-testid="stImage"] img {
     box-shadow: none;
 }
 
-/* Inputs */
+/* TEXT INPUT */
 
 .stTextInput input,
-.stNumberInput input,
-.stSelectbox div[data-baseweb="select"] > div,
-.stMultiSelect div[data-baseweb="select"] > div,
 .stTextArea textarea {
     background: #211a30 !important;
-    color: #f4effb !important;
+    color: #f5f1fc !important;
     border: 1px solid #493b5d !important;
     border-radius: 10px !important;
 }
+
+/* NUMBER INPUT */
+
+.stNumberInput input {
+    background: #211a30 !important;
+    color: #f5f1fc !important;
+    border: 1px solid #493b5d !important;
+    border-radius: 10px !important;
+}
+
+.stNumberInput button {
+    background: #302541 !important;
+    color: #e6d8ff !important;
+    border: 1px solid #493b5d !important;
+}
+
+.stNumberInput button:hover {
+    background: #493366 !important;
+    color: #ffffff !important;
+}
+
+/* SELECTBOX - DARK PURPLE FIX */
+
+.stSelectbox [data-baseweb="select"] > div,
+.stMultiSelect [data-baseweb="select"] > div {
+    background-color: #211a30 !important;
+    color: #f5f1fc !important;
+    border: 1px solid #493b5d !important;
+    border-radius: 10px !important;
+    min-height: 42px;
+}
+
+/* Selectbox text */
+
+.stSelectbox [data-baseweb="select"] *,
+.stMultiSelect [data-baseweb="select"] * {
+    color: #f5f1fc !important;
+}
+
+/* Selectbox arrow */
+
+.stSelectbox [data-baseweb="select"] svg,
+.stMultiSelect [data-baseweb="select"] svg {
+    fill: #c4a9ff !important;
+}
+
+/* Selectbox focus */
+
+.stSelectbox [data-baseweb="select"]:focus-within,
+.stMultiSelect [data-baseweb="select"]:focus-within {
+    border-color: #a78bfa !important;
+    box-shadow: 0 0 0 1px #a78bfa !important;
+}
+
+/* DROPDOWN MENU */
+
+[data-baseweb="popover"] {
+    background-color: #211a30 !important;
+    border: 1px solid #493b5d !important;
+}
+
+[data-baseweb="menu"] {
+    background-color: #211a30 !important;
+}
+
+[data-baseweb="menu"] li {
+    color: #f5f1fc !important;
+}
+
+[data-baseweb="menu"] li:hover {
+    background-color: #493366 !important;
+}
+
+[data-baseweb="menu"] li[aria-selected="true"] {
+    background-color: #493366 !important;
+}
+
+/* INPUT FOCUS */
 
 .stTextInput input:focus,
 .stNumberInput input:focus,
@@ -260,20 +338,7 @@ div[data-testid="stImage"] img {
     box-shadow: 0 0 0 1px #a78bfa !important;
 }
 
-[data-baseweb="popover"] {
-    background: #211a30;
-    border: 1px solid var(--line);
-}
-
-[data-baseweb="menu"] {
-    background: #211a30;
-}
-
-[data-baseweb="menu"] li {
-    color: var(--text);
-}
-
-/* Tables, charts and messages */
+/* TABLES AND MESSAGES */
 
 [data-testid="stDataFrame"] {
     border: 1px solid var(--line);
@@ -294,7 +359,7 @@ hr {
     font-size: 12px;
 }
 
-/* Responsive design */
+/* RESPONSIVE */
 
 @media (max-width: 800px) {
     .block-container {
@@ -324,6 +389,7 @@ hr {
 # =========================================================
 
 def load_data():
+
     if not os.path.exists(DATA_PATH):
         raise FileNotFoundError(f"ไม่พบไฟล์ {DATA_PATH}")
 
@@ -345,6 +411,7 @@ def load_data():
 
 
 def save_data(data):
+
     data[COLUMNS].to_csv(
         DATA_PATH,
         index=False,
@@ -438,20 +505,9 @@ st.markdown("""
 
 m1, m2, m3 = st.columns(3)
 
-m1.metric(
-    "ข้อมูลทั้งหมด",
-    f"{len(dt):,} รายการ"
-)
-
-m2.metric(
-    "คุณลักษณะ",
-    len(FEATURES)
-)
-
-m3.metric(
-    "จำนวนกลุ่ม",
-    int(dt[TARGET].nunique())
-)
+m1.metric("ข้อมูลทั้งหมด", f"{len(dt):,} รายการ")
+m2.metric("คุณลักษณะ", len(FEATURES))
+m3.metric("จำนวนกลุ่ม", int(dt[TARGET].nunique()))
 
 
 # =========================================================
@@ -466,21 +522,9 @@ st.markdown(
 gallery = st.columns(3)
 
 gallery_items = [
-    (
-        "img/heart_structure.jpg",
-        "Heart Anatomy",
-        "โครงสร้างหัวใจ"
-    ),
-    (
-        "img/ecg.jpg",
-        "Electrocardiogram",
-        "คลื่นไฟฟ้าหัวใจ"
-    ),
-    (
-        "img/heart_health.jpg",
-        "Heart Wellness",
-        "การดูแลสุขภาพหัวใจ"
-    )
+    ("img/heart_structure.jpg", "Heart Anatomy", "โครงสร้างหัวใจ"),
+    ("img/ecg.jpg", "Electrocardiogram", "คลื่นไฟฟ้าหัวใจ"),
+    ("img/heart_health.jpg", "Heart Wellness", "การดูแลสุขภาพหัวใจ")
 ]
 
 for col, (path, title, desc) in zip(gallery, gallery_items):
@@ -490,10 +534,7 @@ for col, (path, title, desc) in zip(gallery, gallery_items):
         with st.container(border=True):
 
             if os.path.exists(path):
-                st.image(
-                    path,
-                    use_container_width=True
-                )
+                st.image(path, use_container_width=True)
 
             st.markdown(f"**{title}**")
             st.caption(desc)
@@ -586,12 +627,7 @@ with tab_add:
 
         with a:
 
-            age = st.number_input(
-                "Age",
-                1,
-                120,
-                50
-            )
+            age = st.number_input("Age", 1, 120, 50)
 
             sex = st.selectbox(
                 "Sex",
@@ -604,19 +640,13 @@ with tab_add:
             )
 
             restingbp = st.number_input(
-                "RestingBP",
-                0,
-                300,
-                120
+                "RestingBP", 0, 300, 120
             )
 
         with b:
 
             cholesterol = st.number_input(
-                "Cholesterol",
-                0,
-                1000,
-                200
+                "Cholesterol", 0, 1000, 200
             )
 
             fastingbs = st.selectbox(
@@ -630,10 +660,7 @@ with tab_add:
             )
 
             maxhr = st.number_input(
-                "MaxHR",
-                1,
-                300,
-                150
+                "MaxHR", 1, 300, 150
             )
 
         with c:
@@ -644,11 +671,7 @@ with tab_add:
             )
 
             oldpeak = st.number_input(
-                "Oldpeak",
-                -10.0,
-                20.0,
-                0.0,
-                step=0.1
+                "Oldpeak", -10.0, 20.0, 0.0, step=0.1
             )
 
             slope = st.selectbox(
@@ -660,9 +683,7 @@ with tab_add:
                 "HeartDisease (ผลลัพธ์)",
                 [0, 1],
                 format_func=lambda x:
-                    "0 - ไม่มีโรคหัวใจ"
-                    if x == 0
-                    else "1 - มีโรคหัวใจ"
+                    "0 - ไม่มีโรคหัวใจ" if x == 0 else "1 - มีโรคหัวใจ"
             )
 
         submitted = st.form_submit_button(
@@ -694,10 +715,7 @@ with tab_add:
 
             save_data(updated)
 
-            st.success(
-                "เพิ่มข้อมูลและบันทึกลง Heart3.csv แล้ว"
-            )
-
+            st.success("เพิ่มข้อมูลและบันทึกลง Heart3.csv แล้ว")
             st.rerun()
 
 
@@ -728,101 +746,86 @@ with tab_edit:
             with a:
 
                 e_age = st.number_input(
-                    "Age",
-                    1,
-                    120,
-                    int(current.Age),
-                    key="e_age"
+                    "Age", 1, 120, int(current.Age), key="e_age"
                 )
+
+                sex_values = sorted(dt.Sex.unique().tolist())
 
                 e_sex = st.selectbox(
                     "Sex",
-                    sorted(set(dt.Sex.tolist())),
-                    index=sorted(dt.Sex.unique().tolist()).index(
-                        current.Sex
-                    ),
+                    sex_values,
+                    index=sex_values.index(current.Sex),
                     key="e_sex"
                 )
 
+                chest_values = sorted(dt.ChestPainType.unique().tolist())
+
                 e_chest = st.selectbox(
                     "ChestPainType",
-                    sorted(dt.ChestPainType.unique().tolist()),
-                    index=sorted(
-                        dt.ChestPainType.unique().tolist()
-                    ).index(current.ChestPainType),
+                    chest_values,
+                    index=chest_values.index(current.ChestPainType),
                     key="e_chest"
                 )
 
                 e_bp = st.number_input(
-                    "RestingBP",
-                    0,
-                    300,
-                    int(current.RestingBP),
-                    key="e_bp"
+                    "RestingBP", 0, 300,
+                    int(current.RestingBP), key="e_bp"
                 )
 
             with b:
 
                 e_chol = st.number_input(
-                    "Cholesterol",
-                    0,
-                    1000,
-                    int(current.Cholesterol),
-                    key="e_chol"
+                    "Cholesterol", 0, 1000,
+                    int(current.Cholesterol), key="e_chol"
                 )
+
+                fbs_values = sorted(dt.FastingBS.unique().tolist())
 
                 e_fbs = st.selectbox(
                     "FastingBS",
-                    sorted(dt.FastingBS.unique().tolist()),
-                    index=sorted(
-                        dt.FastingBS.unique().tolist()
-                    ).index(current.FastingBS),
+                    fbs_values,
+                    index=fbs_values.index(current.FastingBS),
                     key="e_fbs"
                 )
 
+                ecg_values = sorted(dt.RestingECG.unique().tolist())
+
                 e_ecg = st.selectbox(
                     "RestingECG",
-                    sorted(dt.RestingECG.unique().tolist()),
-                    index=sorted(
-                        dt.RestingECG.unique().tolist()
-                    ).index(current.RestingECG),
+                    ecg_values,
+                    index=ecg_values.index(current.RestingECG),
                     key="e_ecg"
                 )
 
                 e_maxhr = st.number_input(
-                    "MaxHR",
-                    1,
-                    300,
-                    int(current.MaxHR),
-                    key="e_maxhr"
+                    "MaxHR", 1, 300,
+                    int(current.MaxHR), key="e_maxhr"
                 )
 
             with c:
 
+                ex_values = sorted(dt.ExerciseAngina.unique().tolist())
+
                 e_ex = st.selectbox(
                     "ExerciseAngina",
-                    sorted(dt.ExerciseAngina.unique().tolist()),
-                    index=sorted(
-                        dt.ExerciseAngina.unique().tolist()
-                    ).index(current.ExerciseAngina),
+                    ex_values,
+                    index=ex_values.index(current.ExerciseAngina),
                     key="e_ex"
                 )
 
                 e_old = st.number_input(
-                    "Oldpeak",
-                    -10.0,
-                    20.0,
+                    "Oldpeak", -10.0, 20.0,
                     float(current.Oldpeak),
                     step=0.1,
                     key="e_old"
                 )
 
+                slope_values = sorted(dt.ST_Slope.unique().tolist())
+
                 e_slope = st.selectbox(
                     "ST_Slope",
-                    sorted(dt.ST_Slope.unique().tolist()),
-                    index=sorted(
-                        dt.ST_Slope.unique().tolist()
-                    ).index(current.ST_Slope),
+                    slope_values,
+                    index=slope_values.index(current.ST_Slope),
                     key="e_slope"
                 )
 
@@ -857,10 +860,7 @@ with tab_edit:
 
                 save_data(dt)
 
-                st.success(
-                    "แก้ไขข้อมูลเรียบร้อยแล้ว"
-                )
-
+                st.success("แก้ไขข้อมูลเรียบร้อยแล้ว")
                 st.rerun()
 
     else:
@@ -912,10 +912,7 @@ with tab_delete:
 
             save_data(updated)
 
-            st.success(
-                "ลบข้อมูลเรียบร้อยแล้ว"
-            )
-
+            st.success("ลบข้อมูลเรียบร้อยแล้ว")
             st.rerun()
 
     else:
@@ -958,9 +955,7 @@ with tab_search:
             )
         ]
 
-        st.write(
-            f"พบข้อมูล {len(result)} รายการ"
-        )
+        st.write(f"พบข้อมูล {len(result)} รายการ")
 
         st.dataframe(
             result,
@@ -970,9 +965,7 @@ with tab_search:
 
     else:
 
-        st.caption(
-            "ตัวอย่าง: ค้นหาอายุ 50 หรือ HeartDisease 1"
-        )
+        st.caption("ตัวอย่าง: ค้นหาอายุ 50 หรือ HeartDisease 1")
 
 
 # =========================================================
@@ -983,14 +976,9 @@ with tab_model:
 
     st.markdown("**ฝึกโมเดลใหม่จากข้อมูลปัจจุบัน**")
 
-    st.write(
-        f"ข้อมูลที่ใช้ฝึก: {len(dt):,} รายการ"
-    )
+    st.write(f"ข้อมูลที่ใช้ฝึก: {len(dt):,} รายการ")
 
-    if st.button(
-        "ฝึก KNN ใหม่",
-        use_container_width=True
-    ):
+    if st.button("ฝึก KNN ใหม่", use_container_width=True):
 
         try:
 
@@ -1003,15 +991,11 @@ with tab_model:
             st.session_state["knn_test_n"] = test_n
             st.session_state["knn_k"] = k
 
-            st.success(
-                "ฝึกโมเดลใหม่สำเร็จ โดยใช้ข้อมูลล่าสุด"
-            )
+            st.success("ฝึกโมเดลใหม่สำเร็จ โดยใช้ข้อมูลล่าสุด")
 
         except Exception as e:
 
-            st.error(
-                f"ไม่สามารถฝึกโมเดลได้: {e}"
-            )
+            st.error(f"ไม่สามารถฝึกโมเดลได้: {e}")
 
     try:
 
@@ -1019,23 +1003,12 @@ with tab_model:
 
         q1, q2, q3 = st.columns(3)
 
-        q1.metric(
-            "Accuracy",
-            f"{acc*100:.2f}%"
-        )
-
-        q2.metric(
-            "Training",
-            f"{train_n:,}"
-        )
-
-        q3.metric(
-            "Testing",
-            f"{test_n:,}"
-        )
+        q1.metric("Accuracy", f"{acc*100:.2f}%")
+        q2.metric("Training", f"{train_n:,}")
+        q3.metric("Testing", f"{test_n:,}")
 
         st.caption(
-            f"ใช้ K = {k} | โมเดลจะถูกฝึกใหม่อัตโนมัติเมื่อมีการเปลี่ยนข้อมูล"
+            f"ใช้ K = {k} | โมเดลจะถูกฝึกใหม่เมื่อมีการเปลี่ยนข้อมูล"
         )
 
         st.markdown("**Confusion Matrix**")
@@ -1051,9 +1024,7 @@ with tab_model:
 
     except Exception as e:
 
-        st.error(
-            f"สถานะโมเดล: {e}"
-        )
+        st.error(f"สถานะโมเดล: {e}")
 
 
 # =========================================================
@@ -1076,11 +1047,7 @@ try:
         with a:
 
             p_age = st.number_input(
-                "อายุ (Age)",
-                1,
-                120,
-                50,
-                key="p_age"
+                "อายุ (Age)", 1, 120, 50, key="p_age"
             )
 
             p_sex = st.selectbox(
@@ -1096,21 +1063,13 @@ try:
             )
 
             p_bp = st.number_input(
-                "RestingBP",
-                0,
-                300,
-                120,
-                key="p_bp"
+                "RestingBP", 0, 300, 120, key="p_bp"
             )
 
         with b:
 
             p_chol = st.number_input(
-                "Cholesterol",
-                0,
-                1000,
-                200,
-                key="p_chol"
+                "Cholesterol", 0, 1000, 200, key="p_chol"
             )
 
             p_fbs = st.selectbox(
@@ -1126,11 +1085,7 @@ try:
             )
 
             p_maxhr = st.number_input(
-                "MaxHR",
-                1,
-                300,
-                150,
-                key="p_maxhr"
+                "MaxHR", 1, 300, 150, key="p_maxhr"
             )
 
         with c:
@@ -1142,12 +1097,8 @@ try:
             )
 
             p_old = st.number_input(
-                "Oldpeak",
-                -10.0,
-                20.0,
-                0.0,
-                step=0.1,
-                key="p_old"
+                "Oldpeak", -10.0, 20.0, 0.0,
+                step=0.1, key="p_old"
             )
 
             p_slope = st.selectbox(
@@ -1156,10 +1107,7 @@ try:
                 key="p_slope"
             )
 
-        if st.button(
-            "วิเคราะห์ข้อมูล",
-            use_container_width=True
-        ):
+        if st.button("วิเคราะห์ข้อมูล", use_container_width=True):
 
             new_data = pd.DataFrame(
                 [[
@@ -1178,23 +1126,16 @@ try:
                 columns=FEATURES
             )
 
-            result = int(
-                model.predict(new_data)[0]
-            )
-
+            result = int(model.predict(new_data)[0])
             probs = model.predict_proba(new_data)[0]
 
             if result == 1:
 
-                st.error(
-                    "ผลการจำแนก: HeartDisease = 1"
-                )
+                st.error("ผลการจำแนก: HeartDisease = 1")
 
             else:
 
-                st.success(
-                    "ผลการจำแนก: HeartDisease = 0"
-                )
+                st.success("ผลการจำแนก: HeartDisease = 0")
 
             r1, r2 = st.columns(2)
 
@@ -1214,9 +1155,7 @@ try:
 
 except Exception as e:
 
-    st.warning(
-        f"ยังไม่สามารถทำนายได้: {e}"
-    )
+    st.warning(f"ยังไม่สามารถทำนายได้: {e}")
 
 
 # =========================================================
