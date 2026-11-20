@@ -219,6 +219,8 @@ if st.button("ทำนายผล"):
     )
 
 # -----------------------------
+
+# -----------------------------
 # ส่วนที่ 7 ข้อมูลผู้จัดทำ
 # -----------------------------
 
@@ -226,21 +228,38 @@ st.markdown("---")
 
 st.markdown(
     """
-    <div style="text-align:center;
-                background-color:#D6EAF8;
-                padding:15px;
-                border-radius:15px;">
-        <h3>ผู้จัดทำโครงงาน</h3>
-    </div>
+    <h3 style="text-align:center; margin-bottom:20px;">
+        ผู้จัดทำโครงงาน
+    </h3>
     """,
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([1, 2, 1])
+with st.container(border=True):
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-with col2:
-    st.image(
-        "./img/Profile.jpg",
-        caption="ผู้จัดทำโครงงาน",
-        width=200
+    with col2:
+        left, center, right = st.columns([1, 2, 1])
+
+        with center:
+            st.image(
+                "./img/Profile.jpg",
+                width=180
+            )
+
+    st.markdown(
+        """
+        <div style="text-align:center; padding:5px;">
+            <h4 style="margin-bottom:5px;">
+                ผู้จัดทำโครงงาน
+            </h4>
+            <p style="color:gray; margin:0;">
+                สาขาเทคโนโลยีสารสนเทศ
+            </p>
+            <p style="color:gray; font-size:13px;">
+                KNN Heart Disease Prediction
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
     )
