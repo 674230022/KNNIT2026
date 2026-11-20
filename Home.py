@@ -19,6 +19,20 @@ st.header("โปรเจคการจำแนกข้อมูลโรค
 
 st.write("ระบบจำแนกข้อมูลโรคหัวใจโดยใช้ Machine Learning")
 
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.header("โครงสร้างหัวใจ")
+    st.image("./img/heart_structure.jpg")
+
+with col2:
+    st.header("คลื่นไฟฟ้าหัวใจ (ECG)")
+    st.image("./img/ecg.jpg")
+
+with col3:
+    st.header("สุขภาพหัวใจ")
+    st.image("./img/heart_health.jpg")
+
 # -----------------------------
 # ส่วนที่ 2 อ่านข้อมูล
 # -----------------------------
